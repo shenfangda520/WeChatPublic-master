@@ -1,7 +1,21 @@
 <template>
     <div class="PollutionTypes">
         <!--案件类型-->
-        <v-header></v-header>
+        <v-header title="选择污染类型" :queding=true :genduo=false></v-header>
+        <div class="content">
+            <!--sousuo-->
+            <mt-search v-model="value"  placeholder="搜索名称/拼音">
+                <mt-cell>
+
+                </mt-cell>
+            </mt-search>
+            <!--xuanxiang-->
+            <mt-radio
+                    v-model="valuekey"
+                    :options="option">
+            </mt-radio>
+        </div>
+
     </div>
 </template>
 
@@ -10,7 +24,22 @@
     export default {
         name: 'PollutionTypes',
         data () {
-            return {}
+            return {
+                option:[
+                    '工地扬尘',
+                    '汽车黑烟',
+                    '裸土堆放',
+                    '散煤及生物质燃烧',
+                    '秸秆燃烧',
+                    '道路拥堵',
+                    '渣土车带泥上路',
+                    '渣土运输未苫盖',
+                    '祭祀品贩卖焚烧',
+                    '爆竹贩卖燃烧'
+                ],
+                value:'',
+                valuekey:''
+            }
         },
         beforeCreate(){
 
@@ -30,6 +59,8 @@
     }
 
     .PollutionTypes {
-
+        .content{
+            margin-top: 40px;
+        }
     }
 </style>

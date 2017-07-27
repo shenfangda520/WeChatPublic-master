@@ -1,6 +1,17 @@
 <template>
     <div class="header">
-
+        <mt-header :title="title">
+            <!--<router-link to="/" slot="left">-->
+                <!--<mt-button icon="back"></mt-button>-->
+                <!--<mt-button icon="more" slot="right">确定</mt-button>-->
+            <!--</router-link>-->
+                <router-link to="/" slot="left">
+                    <mt-button icon="back"></mt-button>
+                    <!--<mt-button @click="handleClose">关闭</mt-button>-->
+                </router-link>
+                <mt-button v-if="genduo" icon="more" slot="right"></mt-button>
+                <mt-button  v-if="queding" slot="right">确定</mt-button>
+        </mt-header>
     </div>
 </template>
 
@@ -13,6 +24,14 @@
             }
         },
         props: {
+            genduo:{
+                type:Boolean,
+                default:true
+            },
+            queding:{
+                type:Boolean,
+                default:false
+            },
             active: {
                 type: Number,
                 default: 0
@@ -37,7 +56,15 @@
     }
 
     .header {
-
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top:0;
+        left:0;
+        .mint-header{
+            height: 40px;
+            font-size: 1.8rem;
+        }
     }
 
 </style>

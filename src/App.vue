@@ -89,4 +89,27 @@
         text-align: center;
         height: 100%;
     }
+    .mint-search{
+        height: auto;
+    }
+    .mint-cell{
+        background: none;
+        border:none;
+    }
+    .mint-cell:last-child{
+        background-image:none;
+    }
+    .mint-cell-wrapper{
+        padding: 0;
+        border: none;
+    }
+    .PollutionTypes{
+        .mint-radiolist-label{
+            padding: 0 20px;
+        }
+        .mint-cell-wrapper{
+            text-align: left;
+        }
+    }
+
 </style>
