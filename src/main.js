@@ -18,7 +18,6 @@ Vue.component('v-header', Header);
 Vue.component('v-formo', FormOne);
 Vue.component('v-formt', FormTowo);
 Vue.config.productionTip = false;
-
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

@@ -47,7 +47,12 @@
         mounted(){
 
         },
-        methods: {}
+        methods: {
+            getvaluechenge(){
+                this.valuekey = window.localStorage.setItem("potypes", ttlocation);
+                this.$router.push('/');
+            }
+        }
     }
 </script>
 
@@ -60,7 +65,7 @@
 
     .PollutionTypes {
         .content{
-            margin-top: 40px;
+            margin-top: 50px;
         }
     }
 </style>

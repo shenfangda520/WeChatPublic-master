@@ -1,10 +1,7 @@
 <template>
     <div class="header">
         <mt-header :title="title">
-            <!--<router-link to="/" slot="left">-->
-                <!--<mt-button icon="back"></mt-button>-->
-                <!--<mt-button icon="more" slot="right">确定</mt-button>-->
-            <!--</router-link>-->
+
                 <router-link to="/" slot="left">
                     <mt-button icon="back"></mt-button>
                     <!--<mt-button @click="handleClose">关闭</mt-button>-->
@@ -61,8 +58,9 @@
         position: absolute;
         top:0;
         left:0;
+        z-index:1;
         .mint-header{
-            height: 40px;
+            height: 50px;
             font-size: 1.8rem;
         }
     }

@@ -109,7 +109,23 @@
         }
         .mint-cell-wrapper{
             text-align: left;
+            font-size: 18px;
         }
     }
-
+    .FormOne,.FormTowo {
+        .mint-cell-title{
+            text-align: left;
+            .mint-cell-text{
+                margin-left: 18px;
+            }
+        }
+        .wurantypes{
+            strong{
+                display: inline-block;
+                float: left;
+                text-align: left;
+                margin-left: 18px;
+            }
+        }
+    }
 </style>

@@ -6,12 +6,12 @@
             <!--tab切换-->
             <div class="list-box">
                 <strong>案件类型:</strong>
-                <mt-radio v-model="typevalue" :options="['环保案件', '其他案件']"></mt-radio>
+                <mt-radio v-model="value" :options="['环保案件', '其他案件']" ></mt-radio>
             </div>
             <!--内容1-->
-            <v-formo v-if="formooff"></v-formo>
+            <v-formo v-if="this.value=='环保案件'"></v-formo>
             <!--内容2-->
-            <v-formt v-if="formtoff"></v-formt>
+            <v-formt v-if="this.value=='其他案件'"></v-formt>
         </div>
 
     </div>
@@ -22,20 +22,20 @@
         name: 'CaseReport',
         data () {
             return {
-                formooff:true,
-                formtoff:false,
-                typevalue:''
+                formooff:false,
+                formtoff:true,
+                value:"环保案件"
+            }
+        },
+        props(){
+            return{
+
             }
         },
         methods: {
-            getviewschenge(){
-//                if(){
-//
-//                }
-            }
+
         },
         mounted(){
-
 
         }
     }
@@ -54,7 +54,7 @@
         width: 100%;
         height: auto;
         .content{
-            margin-top: 40px;
+            margin-top: 50px;
             height: auto;
             .list-box{
                 overflow: hidden;
@@ -62,11 +62,13 @@
                 height: 4.2rem;
                 border-bottom: solid 1px #ccc;
                 strong{
+                    text-align: left;
                     width: 10rem;
                     font-size: 18px;
                     display: block;
                     line-height: 4.2rem;
                     float: left;
+                    margin-left: 18px;
                 }
                 .mint-radiolist{
                     position: absolute;
