@@ -45,8 +45,14 @@
                 miaoshu:'',
                 xingming:'',
                 phone:'',
-                addresstext:'',
-                types:''
+                addresstext:{
+                    type: String,
+                    default: '请选择污染源地址'
+                },
+                types:{
+                    type: String,
+                    default:'请选择污染类型'
+                }
             }
         },
         props: {
@@ -60,10 +66,10 @@
             }
         },
         mounted(){
-            //let textadd = localStorage.getItem("locallocation");
-            //this.addresstext = JSON.parse(textadd).splice(",").join("");
-            this.addresstext = localStorage.getItem("locallocation");
+
+            this.addresstext = localStorage.getItem("locallocation") || '';
             this.types = localStorage.getItem("potypes");
+            //console.log(localStorage.getItem("locallocation").splice(","))
         },
         methods: {
 
@@ -93,10 +99,15 @@
                 font-size: 18px;
             }
         }
+        #address{
+            display: inline-block;
+            font-size: 14px;
+            width: 68%;
 
+        }
         .icon-fanhui2{
             float: right;
-            margin-right: 40px;
+            margin-right: 30px;
         }
         .icon-31dingwei{
             font-size: 24px;
@@ -112,6 +123,7 @@
            line-height: 60px;
            border-top:solid 1px #ccc;
            border-bottom:solid 1px #ccc;
+           overflow: hidden;
        }
         /*污染类别位置*/
         .wurantypes{

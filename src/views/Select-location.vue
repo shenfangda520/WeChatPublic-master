@@ -58,7 +58,7 @@
         this.marker.setPosition(e.point);
         this.geoCoder.getLocation(e.point, function (result) {
           let addComp = result.addressComponents;
-          let ttlocation = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+          let ttlocation = addComp.province +  addComp.city +  addComp.district + addComp.street + addComp.streetNumber;
           window.localStorage.setItem("locallocation", ttlocation);
           t.$router.push('/');
         });

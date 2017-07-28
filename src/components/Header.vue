@@ -1,13 +1,11 @@
 <template>
     <div class="header">
         <mt-header :title="title">
-
                 <router-link to="/" slot="left">
                     <mt-button icon="back"></mt-button>
-                    <!--<mt-button @click="handleClose">关闭</mt-button>-->
                 </router-link>
                 <mt-button v-if="genduo" icon="more" slot="right"></mt-button>
-                <mt-button  v-if="queding" slot="right">确定</mt-button>
+                <mt-button  v-if="queding" slot="right" @click="onchenge()">确定</mt-button>
         </mt-header>
     </div>
 </template>
@@ -41,7 +39,12 @@
         mounted(){
 
         },
-        methods: {}
+        methods: {
+            onchenge(){
+                //this.$refs.getvaluechenge()
+                this.$emit('chenge')
+            }
+        }
     }
 </script>
 
