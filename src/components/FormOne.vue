@@ -19,13 +19,22 @@
             <i class="iconfont icon-fanhui2"></i>
             </router-link>
         </div>
-        <div class="imagesQ">
-            <div class="shangchuan">
-                <i class="iconfont icon-tianjia"></i>
-            </div>
-        </div>
+        <!--//上传-->
+        <el-upload
+                class="shangchuan"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                list-type="picture-card"
+                :on-preview="handlePictureCardPreview"
+                :on-remove="handleRemove">
+
+            <i class="el-icon-plus"></i>
+        </el-upload>
+        <el-dialog v-model="dialogVisible" size="tiny">
+            <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
+        <!--//发表-->
         <div class="button">
-            <button>发表</button>
+            <button @click="postsend()">发表</button>
         </div>
         <div class="youqing">
             <p>友情提示：</p>
@@ -37,6 +46,7 @@
 </template>
 
 <script>
+    import { MessageBox } from 'mint-ui';
     export default {
         name: 'FormOne',
         data () {
@@ -52,7 +62,9 @@
                 types:{
                     type: String,
                     default:'请选择污染类型'
-                }
+                },
+                dialogImageUrl: '',
+                dialogVisible: false
             }
         },
         props: {
@@ -63,16 +75,37 @@
             title: {
                 type: String,
                 default: ''
+            },
+            //imgseas
+            imgArr:{
+                type:Array,
+                twoWay: true,
+                default:Array
+            },
+            imgNumLimit:{//一次最多可以上传多少张照片
+                type:Number,
+                default:4
             }
         },
         mounted(){
-
+            //设置位置信息
             this.addresstext = localStorage.getItem("locallocation") || '';
             this.types = localStorage.getItem("potypes");
-            //console.log(localStorage.getItem("locallocation").splice(","))
+
         },
         methods: {
-
+            //上传图片
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
+            //发表
+            postsend(){
+                MessageBox('警告框', '环保案件举报正在开发中！');
+            }
         }
     }
 </script>
@@ -84,7 +117,6 @@
         height: 100%;
         a{text-decoration: none}
     }
-
     .FormOne {
         .miaoshu{
             overflow: hidden;
@@ -117,6 +149,7 @@
         }
         /*地址选取位置*/
        .pagelocation{
+           overflow: hidden;
            font-size: 18px;
             width: 100%;
            height: 60px;
@@ -127,6 +160,7 @@
        }
         /*污染类别位置*/
         .wurantypes{
+            overflow: hidden;
             font-size: 18px;
             width: 100%;
             height: 60px;
@@ -138,6 +172,7 @@
             }
         }
         .button{
+            overflow: hidden;
             width: 100%;
             height:60px;
             button{
@@ -152,6 +187,7 @@
             }
         }
         .youqing{
+            overflow: hidden;
             width: 100%;
             height:auto;
             padding: 50px 0;
@@ -162,20 +198,13 @@
             padding-left: 10px;
         }
         /*上传图片*/
-        .imagesQ{
-
-            .shangchuan{
-                margin:10px 20px;
-                border-radius: 5px;
-                width: 100px;
-                height:100px;
-                border:dashed 1px #ccc;
-                line-height:100px ;
-                i{
-                    font-size: 40px;
-                }
-            }
+        .shangchuan {
+            overflow: hidden;
+            width: 100%;
+            height: auto;
+            padding: 20px 0;
         }
+
 
     }
 

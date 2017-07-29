@@ -5,13 +5,21 @@
         <mt-field label="姓名" state="" v-model="QTxingming" placeholder="(仅管理员可看)"></mt-field>
         <mt-field label="联系方式" state="" v-model="QTphone" placeholder="(仅管理员可看)"></mt-field>
         <div class="xiantiao"></div>
-        <div class="imagesQ">
-            <div class="shangchuan">
-                <i class="iconfont icon-tianjia"></i>
-            </div>
-        </div>
+        <!--//上传-->
+        <el-upload
+                class="shangchuan"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                list-type="picture-card"
+                :on-preview="handlePictureCardPreview"
+                :on-remove="handleRemove">
+
+            <i class="el-icon-plus"></i>
+        </el-upload>
+        <el-dialog v-model="dialogVisible" size="tiny">
+            <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
         <div class="button">
-            <button>发表</button>
+            <button @click="postsend2()">发表</button>
         </div>
         <div class="youqing">
             <p>友情提示：</p>
@@ -23,6 +31,7 @@
 </template>
 
 <script>
+    import { MessageBox } from 'mint-ui';
     export default {
         name: 'FormTowo',
         data () {
@@ -46,7 +55,20 @@
         mounted(){
 
         },
-        methods: {}
+        methods: {
+            //上传图片
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
+            //发表
+            postsend2(){
+                MessageBox('警告框', '其他案件举报正在开发中！');
+            }
+        }
     }
 </script>
 
@@ -102,19 +124,11 @@
             padding-left: 10px;
         }
         /*上传图片*/
-        .imagesQ{
-
-            .shangchuan{
-                margin:10px 20px;
-                border-radius: 5px;
-                width: 100px;
-                height:100px;
-                border:dashed 1px #ccc;
-                line-height:100px ;
-                i{
-                    font-size: 40px;
-                }
-            }
+        .shangchuan{
+            overflow: hidden;
+            width: 100%;
+            height:auto;
+            padding: 20px 0;
         }
     }
 
