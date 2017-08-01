@@ -1,11 +1,11 @@
 <template>
     <div class="header">
         <mt-header :title="title">
-                <router-link to="/" slot="left">
-                    <mt-button icon="back"></mt-button>
-                </router-link>
-                <mt-button v-if="genduo" icon="more" slot="right"></mt-button>
-                <mt-button  v-if="queding" slot="right" @click="onchenge()">确定</mt-button>
+            <router-link to="/" slot="left">
+                <mt-button icon="back"></mt-button>
+            </router-link>
+            <mt-button v-if="genduo" icon="more" slot="right"></mt-button>
+            <mt-button v-if="queding" slot="right" @click="onchenge()">确定</mt-button>
         </mt-header>
     </div>
 </template>
@@ -19,13 +19,13 @@
             }
         },
         props: {
-            genduo:{
-                type:Boolean,
-                default:true
+            genduo: {
+                type: Boolean,
+                default: true
             },
-            queding:{
-                type:Boolean,
-                default:false
+            queding: {
+                type: Boolean,
+                default: false
             },
             active: {
                 type: Number,
@@ -59,10 +59,10 @@
         width: 100%;
         height: auto;
         position: absolute;
-        top:0;
-        left:0;
-        z-index:1;
-        .mint-header{
+        top: 0;
+        left: 0;
+        z-index: 1;
+        .mint-header {
             height: 50px;
             font-size: 1.8rem;
         }

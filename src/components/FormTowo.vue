@@ -1,23 +1,29 @@
 <template>
     <div class="FormTowo">
-        <mt-field label="标题" state="" v-model="QTbiaoti" placeholder="4-25个字"></mt-field>
-        <div class="neirong"><textarea  placeholder="内容,不超过700字" class="text"></textarea></div>
-        <mt-field label="姓名" state="" v-model="QTxingming" placeholder="(仅管理员可看)"></mt-field>
-        <mt-field label="联系方式" state="" v-model="QTphone" placeholder="(仅管理员可看)"></mt-field>
-        <div class="xiantiao"></div>
-        <!--//上传-->
-        <el-upload
-                class="shangchuan"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                list-type="picture-card"
-                :on-preview="handlePictureCardPreview"
-                :on-remove="handleRemove">
+        <div class="item-1">
+            <input v-model="QTbiaoti" placeholder="标题,4-25个字" id="Qbt"/>
+        </div>
+        <div class="item-2">
+            <textarea placeholder="内容,不超过700字" class="text"></textarea>
+        </div>
+        <div class="item-1">
+            <input v-model="QTxingming" placeholder="姓名,(仅管理员可看)"/>
+        </div>
+        <div class="item-1">
+            <input v-model="QTphone" placeholder="联系方式,(仅管理员可看)" id="moble"/>
+        </div>
 
-            <i class="el-icon-plus"></i>
-        </el-upload>
-        <el-dialog v-model="dialogVisible" size="tiny">
-            <img width="100%" :src="dialogImageUrl" alt="">
-        </el-dialog>
+        <!--//上传-->
+        <div class="am-form-group QlabelPosition">
+            <ul class="headerImgUpload">
+                <li v-for="(item,index) in coverPhoto" class="cont">
+                    <img :src="item" @click="QdelImage(index,0)" alt=""/>
+                </li>
+                <li class="upClick"  @change="QonFileImageChange($event,0)">
+                    <input id="file_input" type="file"/><i class="iconfont icon-tianjia"></i>
+                </li>
+            </ul>
+        </div>
         <div class="button">
             <button @click="postsend2()">发表</button>
         </div>
@@ -31,15 +37,17 @@
 </template>
 
 <script>
-    import { MessageBox } from 'mint-ui';
+    import {MessageBox,Toast} from 'mint-ui';
     export default {
         name: 'FormTowo',
         data () {
             return {
                 QTbiaoti: '',
-//                QTneirong:'',
-                QTxingming:'',
-                QTphone:''
+                QTneirong:'',
+                QTxingming: '',
+                QTphone: '',
+                coverPhoto:[],
+                detailPhoto:[]
             }
         },
         props: {
@@ -53,20 +61,100 @@
             }
         },
         mounted(){
-
+            let that = this;
+            //标题
+            $("#Qbt").blur(function (){
+                var bt=that.QTbiaoti;
+                if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(bt) || bt.length < 4){
+                    Toast('少于4个字符，请继续输入！');
+                }else if(!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(bt) || bt.length > 25){
+                    Toast('最多只能输入25个字符！');
+                }
+            });
+            //
+            $(".text").blur(function (){
+                that.QTneirong = $(".text").val();
+                var miao=that.QTneirong;
+                if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(miao) || miao.length < 20){
+                    Toast('少于20个字符，请继续输入！');
+                }else if(!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(miao) || miao.length > 700){
+                    Toast('最多只能输入700个字符！');
+                }
+            })
+            //
+            //手机
+            $("#moble").blur(function () {
+                that.QTphone = $("#moble").val();
+                var iphone = that.QTphone;
+                console.log(iphone)
+                if (!(/^1(3|4|5|7|8)\d{9}$/.test(iphone))) {
+                    Toast('手机号码有误，请重填');
+                }
+            })
         },
         methods: {
             //上传图片
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
+            //监听上传图片事件
+            QonFileImageChange(e, type) {
+                let files = e.target.files || e.dataTransfer.files;
+                if (!files.length) return;
+                if (files[0].type.indexOf('image') < 0) {
+                    alert('上传了非图片')
+                    return
+                }
+                this.createImage(files, type);
             },
-            handlePictureCardPreview(file) {
-                this.dialogImageUrl = file.url;
-                this.dialogVisible = true;
+            //创建图片
+            createImage(file, type) {
+                if (typeof FileReader === 'undefined') {
+                    Toast('您的浏览器不支持图片上传，请升级您的浏览器。推荐下载谷歌浏览器');
+                    return false
+                }
+                let image = new Image();
+                let length = file.length;
+                for (var i = 0; i < length; i++) {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(file[i]);
+                    reader.onload = (e) => {
+                        type == 0 ?
+                            this.coverPhoto.push(e.target.result) :
+                            this.detailPhoto.push(e.target.result)
+                    }
+                }
+                Toast('上传成功！')
+            },
+            //删除图片
+            QdelImage(index, type) {
+                type == 0 ?
+                    this.coverPhoto.shift(index) :
+                    this.detailPhoto.shift(index);
+                Toast('删除成功！')
             },
             //发表
             postsend2(){
-                MessageBox('警告框', '其他案件举报正在开发中！');
+                let that = this;
+                //console.log(that.dialogImageUrl)
+                let params = {content:[{
+                    type:'text',
+                    value:'that.QTneirong'
+                },{
+                    type:'image',
+                    value:'that.coverPhoto[0]'
+                }],attributes:{
+                    mid:'288',//社区ID
+                    ppt:'that.QTbiaoti',//帖子标题
+                    ian:'that.QTneirong',//帖子内容
+                    name:'that.QTxingming',//姓名
+                    phone:'that.QTphone'//联系方式
+                }};
+                requestHandle.request(params,function (result) {
+                    //console.log(result.msg)
+                    if(result.msg == "Success"){
+                        MessageBox('警告框', '发表成功！');
+                    }else{
+                        MessageBox('警告框', '发表失败！');
+                    }
+                })
             }
         }
     }
@@ -80,55 +168,94 @@
     }
 
     .FormTowo {
-        .neirong{
-            overflow: hidden;
+        .item-1{
             width: 100%;
-            border:solid 1px #ccc;
-            .text{
-                display: inline-block;
+            height:60px;
+            border-bottom: solid 1px #ccc;
+            input{
+                font-size: 18px;
+                display:block;
                 width: 92%;
-                height:200px;
+                height: 58px;
+                margin: 0 auto;
+                border: none;
+            }
+        }
+        .item-2 {
+            width: 100%;
+            height:160px;
+            border-bottom: solid 1px #ccc;
+            .text {
+                display: inline-block;
+                width: 93%;
+                height: 160px;
                 border: none;
                 margin: 0 auto;
                 font-size: 18px;
             }
         }
-        .xiantiao{
+        .button {
             width: 100%;
-            height: 0;
-            border-bottom: 1px solid #ccc;
-            margin-bottom: 5px;
-        }
-        .button{
-            width: 100%;
-            height:60px;
-            button{
+            height: 60px;
+            margin-top: 15px;
+            button {
                 font-size: 18px;
                 width: 90px;
-                height:40px;
+                height: 40px;
                 color: #fff;
-                background:#35acfc;
-                border:none;
+                background: #35acfc;
+                border: none;
                 border-radius: 5px;
-                margin-left:230px;
+                margin-left: 230px;
             }
         }
-        .youqing{
+        .youqing {
+            color: #959595;
             width: 100%;
-            height:auto;
+            height: auto;
             padding: 50px 0;
             font-size: 16px;
             text-align: left;
-            background:#f5f5f5;
+            background: #f5f5f5;
             line-height: 24px;
             padding-left: 10px;
         }
         /*上传图片*/
-        .shangchuan{
+        .QlabelPosition {
             overflow: hidden;
             width: 100%;
-            height:auto;
-            padding: 20px 0;
+            height: auto;
+            .headerImgUpload .upClick{
+                border:dashed 1px #ccc;
+            }
+            .headerImgUpload li{
+                margin-top: 8px;
+                margin-left: 5px;
+                float: left;
+                border-radius:3px;
+                width: 64px;
+                height: 64px;
+                overflow: hidden;
+                position: relative;
+                line-height: 64px;
+
+                #file_input{
+                    width: 60px;
+                    height: 60px;
+                    border: none;
+                    background: #fff;
+                    position: absolute;
+                    font-size: 100px;
+                    right: 0;
+                    top: 0;
+                    opacity: 0;
+                }
+                img{
+                    border-radius:3px;
+                    width: 63px;
+                    height: 63px;
+                }
+            }
         }
     }
 

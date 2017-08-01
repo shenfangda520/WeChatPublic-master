@@ -4,7 +4,7 @@
         <v-header title="选择污染类型" :queding=true :genduo=false @chenge="getvaluechenge()"></v-header>
         <div class="content">
             <!--sousuo-->
-            <mt-search v-model="value"  placeholder="搜索名称/拼音">
+            <mt-search v-model="value" placeholder="搜索名称/拼音">
                 <mt-cell>
 
                 </mt-cell>
@@ -21,12 +21,12 @@
 
 <script>
     //import api from '../api/index'
-    import { MessageBox } from 'mint-ui';
+    import {MessageBox} from 'mint-ui';
     export default {
         name: 'PollutionTypes',
         data () {
             return {
-                option:[
+                option: [
                     '工地扬尘',
                     '汽车黑烟',
                     '裸土堆放',
@@ -38,19 +38,19 @@
                     '祭祀品贩卖焚烧',
                     '爆竹贩卖燃烧'
                 ],
-                value:'',
-                valuekey:''
+                value: '',
+                valuekey: ''
             }
         },
         beforeCreate(){
 
         },
         mounted(){
-                let that = this;
-                let valuek = that.valuekey;
-                return that.option.filter(function (valuek) {
-                    return valuek.toLowerCase().indexOf(that.value.toLowerCase()) !== -1;
-                })
+            let that = this;
+            let valuek = that.valuekey;
+            return that.option.filter(function (valuek) {
+                return valuek.toLowerCase().indexOf(that.value.toLowerCase()) !== -1;
+            })
 
         },
         methods: {
@@ -58,9 +58,9 @@
                 console.log('我被点击了')
                 let typepss = this.valuekey;
 
-                if(!typepss){
+                if (!typepss) {
                     MessageBox('警告框！', '请选择一个选项！');
-                }else{
+                } else {
 
                     window.localStorage.setItem("potypes", typepss);
                     this.$router.push('/');
@@ -78,7 +78,7 @@
     }
 
     .PollutionTypes {
-        .content{
+        .content {
             margin-top: 50px;
         }
     }

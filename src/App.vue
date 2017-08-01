@@ -89,38 +89,45 @@
         text-align: center;
         height: 100%;
     }
-    .mint-search{
-        height: auto;
+
+    .mint-search {
+        height: auto!important;
     }
-    .mint-cell{
-        background: none;
-        border:none;
-    }
-    .mint-cell:last-child{
-        background-image:none;
-    }
-    .mint-cell-wrapper{
-        padding: 0;
+
+    .mint-cell {
+        background: none!important;
         border: none;
     }
-    .PollutionTypes{
-        .mint-radiolist-label{
+    .mint-radiolist{
+        margin-top: 0.4rem;
+    }
+    .mint-cell:last-child{
+        background-image: none!important;
+    }
+    .mint-cell-wrapper {
+        padding: 0;
+        border: none;
+        background-image: none!important;
+    }
+
+    .PollutionTypes {
+        .mint-radiolist-label {
             padding: 0 20px;
         }
-        .mint-cell-wrapper{
+        .mint-cell-wrapper {
             text-align: left;
             font-size: 18px;
         }
     }
-    .FormOne,.FormTowo {
-        .mint-cell-title{
+    .FormOne, .FormTowo {
+        .mint-cell-title {
             text-align: left;
-            .mint-cell-text{
+            .mint-cell-text {
                 margin-left: 18px;
             }
         }
-        .wurantypes{
-            strong{
+        .wurantypes {
+            strong {
                 display: inline-block;
                 float: left;
                 text-align: left;
