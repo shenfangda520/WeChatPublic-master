@@ -13,19 +13,20 @@
             <input v-model="QTphone" placeholder="联系方式,(仅管理员可看)" id="moble"/>
         </div>
 
+        <div class="button">
+            <button @click="postsend2()">发表</button>
+        </div>
         <!--//上传-->
         <div class="am-form-group QlabelPosition">
             <ul class="headerImgUpload">
                 <li v-for="(item,index) in coverPhoto" class="cont">
+                    <i class="iconfont icon-shibai shanchu"></i>
                     <img :src="item" @click="QdelImage(index,0)" alt=""/>
                 </li>
                 <li class="upClick"  @change="QonFileImageChange($event,0)">
                     <input id="file_input" type="file"/><i class="iconfont icon-tianjia"></i>
                 </li>
             </ul>
-        </div>
-        <div class="button">
-            <button @click="postsend2()">发表</button>
         </div>
         <div class="youqing">
             <p>友情提示：</p>
@@ -51,7 +52,7 @@
                 photos:[],
                 pti:288,
                 mid:288,
-                un:'wx9988851'
+                un:'[weixin]owQ3dvtTpoSi1LQOZVjuwRmbIYGE'
             }
         },
         props: {
@@ -252,6 +253,7 @@
         }
         /*上传图片*/
         .QlabelPosition {
+            background: #f5f5f5;
             overflow: hidden;
             width: 100%;
             height: auto;
@@ -265,7 +267,7 @@
                 border-radius:3px;
                 width: 64px;
                 height: 64px;
-                overflow: hidden;
+
                 position: relative;
                 line-height: 64px;
 
@@ -284,6 +286,11 @@
                     border-radius:3px;
                     width: 63px;
                     height: 63px;
+                }
+                .shanchu{
+                    position: absolute;
+                    top: -27px;
+                    right: -5px;
                 }
             }
         }

@@ -2,6 +2,17 @@ var hexcase=0;function hex_md5(a){ if(a=="") return a; return rstr2hex(rstr_md5(
 var requestHandle = {
 	action:'sendPost',
     imgaction:'upPostPhoto',
+    requestBendi:function (postData,callback) {
+        $.ajax({
+            url: 'http://10.6.24.9:8008/api/EventInfo/postEventInfo',
+            type: 'POST',
+            dataType: 'json',
+            data: postData,
+            success: function(result) {
+                callback(result);
+            }
+        });
+    },
 	request:function(params,callback){
 		var t = this;
 		$.ajax({
@@ -17,7 +28,7 @@ var requestHandle = {
 	},
 	_getParams:function(data){
 		//
-		console.log(data)
+		//console.log(data)
 		var content = data.content;
 		var attributes = data.attributes;
 		var postInfo = [];
@@ -37,7 +48,7 @@ var requestHandle = {
 			}
 
         }
-		console.log(postInfo);
+		//console.log(postInfo);
 		var sendPostParam = {un:attributes.un, mid:attributes.mid, ptt:attributes.ptt, pct:attributes.pct};
 		sendPostParam.rnm = attributes.name;
 		sendPostParam.rco = attributes.phone;

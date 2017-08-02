@@ -4,15 +4,36 @@
         <v-header title="选择污染类型" :queding=true :genduo=false @chenge="getvaluechenge()"></v-header>
         <div class="content">
             <!--sousuo-->
-            <mt-search v-model="value" placeholder="搜索名称/拼音">
+            <mt-search  placeholder="搜索名称/拼音">
                 <mt-cell>
-
+                    <!--[-->
+                    <!--'工地扬尘',-->
+                    <!--'裸土堆放',-->
+                    <!--'汽车黑烟',-->
+                    <!--'道路拥堵',-->
+                    <!--'大车禁行',-->
+                    <!--'祭祀品贩卖',-->
+                    <!--'爆竹贩卖',-->
+                    <!--'爆竹燃放',-->
+                    <!--'渣土车带泥上路',-->
+                    <!--'渣土车运输未苫盖',-->
+                    <!--'露天烧烤',-->
+                    <!--'餐饮油烟',-->
+                    <!--'露天喷漆',-->
+                    <!--'露天电气焊',-->
+                    <!--'垃圾堆放',-->
+                    <!--'企业废气排放',-->
+                    <!--'锅炉黑烟',-->
+                    <!--'秸秆焚烧',-->
+                    <!--'散煤及生物质焚烧'-->
+                    <!--]-->
                 </mt-cell>
             </mt-search>
             <!--xuanxiang-->
             <mt-radio
+                    :value.sync="value"
                     v-model="valuekey"
-                    :options="option">
+                    :options="options">
             </mt-radio>
         </div>
 
@@ -26,17 +47,159 @@
         name: 'PollutionTypes',
         data () {
             return {
-                option: [
-                    '工地扬尘',
-                    '汽车黑烟',
-                    '裸土堆放',
-                    '散煤及生物质燃烧',
-                    '秸秆燃烧',
-                    '道路拥堵',
-                    '渣土车带泥上路',
-                    '渣土运输未苫盖',
-                    '祭祀品贩卖焚烧',
-                    '爆竹贩卖燃烧'
+                options: [
+                    {
+                        label: '工地扬尘',
+                        value: {
+                            name : '工地扬尘',
+                            id : '1'
+                        }
+                    },
+                    {
+                        label: '裸土堆放',
+                        value: {
+                            name:'裸土堆放',
+                            id:'2'
+                        }
+                    },
+                    {
+                        label: '汽车黑烟',
+                        value: {
+                            name:'汽车黑烟',
+                            id:'3'
+                        }
+                    },
+                    {
+                        label: '道路拥堵',
+                        value: {
+                            name:'道路拥堵',
+                            id:'4'
+                        }
+                    },
+                    {
+                        label: '大车禁行',
+                        value: {
+                            name:'大车禁行',
+                            id:'5'
+                        }
+
+                    },
+                    {
+                        label: '祭祀品贩卖',
+                        value: {
+                            name:'祭祀品贩卖',
+                            id:'6'
+                        }
+                    },
+                    {
+                        label: '爆竹贩卖',
+                        value: {
+                            name:'爆竹贩卖',
+                            id:'7'
+                        }
+                    },
+                    {
+                        label: '爆竹燃放',
+                        value: {
+                            name:'爆竹燃放',
+                            id:'8'
+                        }
+
+                    },
+                    {
+                        label: '渣土车带泥上路',
+                        value:{
+                            name:'渣土车带泥上路',
+                            id:'9'
+                        }
+
+                    },
+                    {
+                        label: '渣土车运输未苫盖',
+                        value: {
+                            name:'渣土车运输未苫盖',
+                            id:'10'
+                        }
+                    },
+                    {
+                        label: '露天烧烤',
+                        value: {
+                            name:'露天烧烤',
+                            id:'11'
+                        }
+
+                    },
+                    {
+                        label: '餐饮油烟',
+                        value: {
+                            name:'餐饮油烟',
+                            id:'12'
+                        }
+                    },
+                    {
+                        label: '露天喷漆',
+                        value:{
+                            name:'露天喷漆',
+                            id:'13'
+                        }
+
+                    },
+                    {
+                        label: '露天电气焊',
+                        value: {
+                            name:'露天电气焊',
+                            id:'14'
+                        }
+
+                    },
+                    {
+                        label: '垃圾堆放',
+                        value: {
+                            name:'垃圾堆放',
+                            id:'15'
+                        }
+
+                    },
+                    {
+                        label: '企业废气排放',
+                        value: {
+                            name:'企业废气排放',
+                            id:'16'
+                        }
+
+                    },
+                    {
+                        label: '锅炉黑烟',
+                        value:{
+                            name:'锅炉黑烟',
+                            id:'17'
+                        }
+
+                    },
+                    {
+                        label: '祭祀品焚烧',
+                        value: {
+                           name: '祭祀品焚烧',
+                            id:'18'
+                        }
+
+                    },
+                    {
+                        label: '秸秆焚烧',
+                        value: {
+                            name:'秸秆焚烧',
+                            id:'19'
+                        }
+
+                    },
+                    {
+                        label: '散煤及生物质焚烧',
+                        value: {
+                            name:'散煤及生物质焚烧',
+                            id:'20'
+                        }
+
+                    }
                 ],
                 value: '',
                 valuekey: ''
@@ -46,16 +209,11 @@
 
         },
         mounted(){
-            let that = this;
-            let valuek = that.valuekey;
-            return that.option.filter(function (valuek) {
-                return valuek.toLowerCase().indexOf(that.value.toLowerCase()) !== -1;
-            })
 
         },
         methods: {
             getvaluechenge(){
-                console.log('我被点击了')
+               console.log('已选择')
                 let typepss = this.valuekey;
 
                 if (!typepss) {

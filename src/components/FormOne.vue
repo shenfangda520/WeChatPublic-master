@@ -26,10 +26,15 @@
                 <i class="iconfont icon-fanhui2"></i>
             </router-link>
         </div>
+        <!--//发表-->
+        <div class="button">
+            <button @click="postsend()">发表</button>
+        </div>
         <!--//上传-->
         <div class="am-form-group labelPosition">
             <ul class="headerImgUpload">
                 <li v-for="(item,index) in coverPhoto" class="cont">
+                    <i class="iconfont icon-shibai shanchu"></i>
                     <img :src="item" @click="delImage(index,0)" alt=""/>
                 </li>
                 <li class="upClick"  @change="onFileImageChange($event,0)">
@@ -38,10 +43,6 @@
             </ul>
         </div>
 
-        <!--//发表-->
-        <div class="button">
-            <button @click="postsend()">发表</button>
-        </div>
         <div class="youqing">
             <p>友情提示：</p>
             <p>与主题有关优质讨论会被加精</p>
@@ -66,9 +67,11 @@
                 photos:[],
                 coverPhoto:[],
                 detailPhoto:[],
+                image64:[],
                 un:'[weixin]owQ3dvtTpoSi1LQOZVjuwRmbIYGE',
                 pti:288,
-                mid:288
+                mid:288,
+                typeid:''
             }
         },
         props: {
@@ -99,7 +102,49 @@
             this.biaoti = localStorage.getItem("biaotis");
             this.xingming = localStorage.getItem("username");
             this.phone = localStorage.getItem("phones");
-            $(".text").innerHTML =  localStorage.getItem("biaotis");
+            let typetext = $("#typespo").val();
+            if(typetext == '工地扬尘'){
+                this.typeid = 1
+            }else if(typetext == '裸土堆放'){
+                this.typeid = 2
+            }else if(typetext == '汽车黑烟'){
+                this.typeid = 3
+            }else if(typetext == '道路拥堵'){
+                this.typeid = 4
+            }else if(typetext== '大车禁行'){
+                this.typeid = 5
+            }else if(typetext == '祭祀品贩卖'){
+                this.typeid = 6
+            }else if(typetext == '爆竹贩卖'){
+                this.typeid = 7
+            }else if(typetext == '爆竹燃放'){
+                this.typeid = 8
+            }else if(typetext == '渣土车带泥上路'){
+                this.typeid = 9
+            }else if(typetext == '渣土车运输未苫盖'){
+                this.typeid = 10
+            }else if(typetext == '露天烧烤'){
+                this.typeid = 11
+            }else if(typetext == '餐饮油烟'){
+                this.typeid = 12
+            }else if(typetext == '露天喷漆'){
+                this.typeid = 13
+            }else if(typetext == '露天电气焊'){
+                this.typeid = 14
+            }else if(typetext == '垃圾堆放'){
+                this.typeid = 15
+            }else if(typetext == '企业废气排放'){
+                this.typeid = 16
+            }else if(typetext == '锅炉黑烟'){
+                this.typeid = 17
+            }else if(typetext == '祭祀品焚烧'){
+                this.typeid = 18
+            }else if(typetext == '秸秆焚烧'){
+                this.typeid = 19
+            }else if(typetext == '散煤及生物质焚烧'){
+                this.typeid = 20
+            }
+            console.log(this.typeid)
             let that = this;
             //标题
             $("#bt").blur(function () {
@@ -116,7 +161,7 @@
                 that.miaoshu = $(".text").val();
                 var miao = that.miaoshu;
                 window.localStorage.setItem("miaosus", miao);
-                console.log(miao)
+                //console.log(miao)
                 if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(miao) || miao.length < 20) {
                     Toast('少于20个字符，请继续输入！');
                 } else if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(miao) || miao.length > 700) {
@@ -146,7 +191,7 @@
                 let files = e.target.files || e.dataTransfer.files;
                 if (!files.length) return;
                 if (files[0].type.indexOf('image') < 0) {
-                    alert('上传了非图片')
+                    Toast('上传了非图片')
                     return
                 }
                 this.createImage(files, type);
@@ -167,30 +212,8 @@
                         type == 0 ?
                             this.coverPhoto.push(e.target.result) :
                             this.detailPhoto.push(e.target.result)
-                        //
                         //shangchaun
-                        let Kparams = {
-                            content:[{
-                                type: 'image',
-                                value: e.target.result.split(',')[1],
-                                name:'jpg'
-                            }],
-                            attributes:{
-                                un: t.un,//用户名
-                                pti: t.pti,//帖子id
-                                phc: e.target.result.split(',')[1],//图片内容
-                                phe:"jpg || png"// 图片扩展名
-                            }
-                        };
-                        //上传服务器64位图片返回图片地址
-                        requestHandle.requestimg(Kparams, function (result) {
-                            console.log(result)
-                            if(result.errcode == '100000'){
-                                Toast('上传成功！');
-                                t.photos.push(result.result[0].post_photo)
-                            }
-                        });
-                        //
+                        this.image64.push(e.target.result.split(',')[1]);
                     }
                 }
 
@@ -210,35 +233,26 @@
                 let ppt = this.biaoti;
                 let name = this.xingming;
                 let phone = this.phone;
-                //正经发送
-                let params = {
-                    content: [{
-                        type: 'text',
-                        value: pnr
-                    }, {
-                        type: 'image',
-                        value: this.photos
-                    }], attributes: {
-                        un:un,//用户名
-                        mid: mid,//社区ID
-                        ppt: ppt,//帖子标题
-                        pct: pnr,//帖子内容
-                        name: name,//姓名
-                        phone: phone//联系方式
-                    }
+
+                //本地效果
+                let postData = {
+                    CategoryID: this.typeid,//类别ID
+                    Address: this.addresstext,//地址
+                    Title: ppt,//标题
+                    Content: pnr,//描述
+                    Submitter: name,//提交人
+                    ContactInformation: phone,//联系方式
+                    Imgs: this.image64//图片64位编码数组[,]
                 };
-                console.log(params)
-                //发送主体文字和图片
-                requestHandle.request(params, function (result) {
-                    console.log(result)
-                    if(result.msg == "Success"){
+                requestHandle.requestBendi(postData,function (result) {
+                    if(result.Code == 1) {
+                        //成功
                         MessageBox('警告框', '发表成功！');
-                    }else{
+                    } else {
+                        //失败
                         MessageBox('警告框', '发表失败！');
                     }
-
                 })
-
             }
 
         }
@@ -360,6 +374,7 @@
         }
         /*上传图片*/
         .labelPosition {
+            background: #f5f5f5;
             overflow: hidden;
             width: 100%;
             height: auto;
@@ -368,12 +383,12 @@
             }
             .headerImgUpload li{
                 margin-top: 8px;
-                margin-left: 5px;
+                margin-left: 8px;
                 float: left;
                 border-radius:3px;
                 width: 64px;
                 height: 64px;
-                overflow: hidden;
+
                 position: relative;
                 line-height: 64px;
                 #file_input{
@@ -392,8 +407,14 @@
                     width: 63px;
                     height: 63px;
                 }
+                .shanchu{
+                    position: absolute;
+                    top: -27px;
+                    right: -5px;
+                }
             }
         }
+
 
     }
 
