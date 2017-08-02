@@ -7,7 +7,7 @@
             <textarea placeholder="描述,不超过700字" class="text"></textarea>
         </div>
         <div class="item-1">
-            <input v-model="xingming" placeholder="姓名,(仅管理员可看)"/>
+            <input v-model="xingming" placeholder="姓名,(仅管理员可看)" id="user"/>
         </div>
         <div class="item-1">
             <input v-model="phone" placeholder="联系方式,(仅管理员可看)" id="moble"/>
@@ -63,8 +63,12 @@
                 phone: '',
                 addresstext:'',
                 types:'',
+                photos:[],
                 coverPhoto:[],
-                detailPhoto:[]
+                detailPhoto:[],
+                un:'[weixin]owQ3dvtTpoSi1LQOZVjuwRmbIYGE',
+                pti:288,
+                mid:288
             }
         },
         props: {
@@ -92,10 +96,15 @@
             //设置位置信息
             this.addresstext = localStorage.getItem("locallocation") || '请选择污染源地址';
             this.types = localStorage.getItem("potypes") || '请选择污染类型';
+            this.biaoti = localStorage.getItem("biaotis");
+            this.xingming = localStorage.getItem("username");
+            this.phone = localStorage.getItem("phones");
+            $(".text").innerHTML =  localStorage.getItem("biaotis");
             let that = this;
             //标题
             $("#bt").blur(function () {
                 var bt = that.biaoti;
+                window.localStorage.setItem("biaotis", bt);
                 if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(bt) || bt.length < 4) {
                     Toast('少于4个字符，请继续输入！');
                 } else if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(bt) || bt.length > 25) {
@@ -106,6 +115,7 @@
             $(".text").blur(function () {
                 that.miaoshu = $(".text").val();
                 var miao = that.miaoshu;
+                window.localStorage.setItem("miaosus", miao);
                 console.log(miao)
                 if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(miao) || miao.length < 20) {
                     Toast('少于20个字符，请继续输入！');
@@ -117,10 +127,16 @@
             $("#moble").blur(function () {
                 that.phone = $("#moble").val();
                 var iphone = that.phone;
-                console.log(iphone)
+                window.localStorage.setItem("phones", iphone);
+                //console.log(iphone)
                 if (!(/^1(3|4|5|7|8)\d{9}$/.test(iphone))) {
                     Toast('手机号码有误，请重填');
                 }
+            })
+            //
+            $("#user").blur(function () {
+                let user = $("#user").val();
+                window.localStorage.setItem("username", user);
             })
         },
         methods: {
@@ -137,6 +153,7 @@
             },
             //创建图片
             createImage(file, type) {
+                let t = this;
                 if (typeof FileReader === 'undefined') {
                     Toast('您的浏览器不支持图片上传，请升级您的浏览器。推荐下载谷歌浏览器');
                     return false
@@ -150,9 +167,33 @@
                         type == 0 ?
                             this.coverPhoto.push(e.target.result) :
                             this.detailPhoto.push(e.target.result)
+                        //
+                        //shangchaun
+                        let Kparams = {
+                            content:[{
+                                type: 'image',
+                                value: e.target.result.split(',')[1],
+                                name:'jpg'
+                            }],
+                            attributes:{
+                                un: t.un,//用户名
+                                pti: t.pti,//帖子id
+                                phc: e.target.result.split(',')[1],//图片内容
+                                phe:"jpg || png"// 图片扩展名
+                            }
+                        };
+                        //上传服务器64位图片返回图片地址
+                        requestHandle.requestimg(Kparams, function (result) {
+                            console.log(result)
+                            if(result.errcode == '100000'){
+                                Toast('上传成功！');
+                                t.photos.push(result.result[0].post_photo)
+                            }
+                        });
+                        //
                     }
                 }
-                Toast('上传成功！')
+
             },
             //删除图片
             delImage(index, type) {
@@ -163,25 +204,33 @@
             },
             //发表
             postsend(){
-                let that = this;
-                //console.log(that.coverPhoto[0])
+                let un = this.un;
+                let mid = this.mid;
+                let pnr = this.miaoshu;
+                let ppt = this.biaoti;
+                let name = this.xingming;
+                let phone = this.phone;
+                //正经发送
                 let params = {
                     content: [{
                         type: 'text',
-                        value: 'that.miaoshu'
+                        value: pnr
                     }, {
                         type: 'image',
-                        value: 'that.coverPhoto[0]'
+                        value: this.photos
                     }], attributes: {
-                        mid: '288',//社区ID
-                        ppt: 'that.biaoti',//帖子标题
-                        ian: 'that.miaoshu',//帖子内容
-                        name: 'that.xingming',//姓名
-                        phone: 'that.phone'//联系方式
+                        un:un,//用户名
+                        mid: mid,//社区ID
+                        ppt: ppt,//帖子标题
+                        pct: pnr,//帖子内容
+                        name: name,//姓名
+                        phone: phone//联系方式
                     }
                 };
+                console.log(params)
+                //发送主体文字和图片
                 requestHandle.request(params, function (result) {
-                    console.log(result.msg)
+                    console.log(result)
                     if(result.msg == "Success"){
                         MessageBox('警告框', '发表成功！');
                     }else{
@@ -191,6 +240,7 @@
                 })
 
             }
+
         }
     }
 </script>

@@ -47,7 +47,11 @@
                 QTxingming: '',
                 QTphone: '',
                 coverPhoto:[],
-                detailPhoto:[]
+                detailPhoto:[],
+                photos:[],
+                pti:288,
+                mid:288,
+                un:'wx9988851'
             }
         },
         props: {
@@ -106,6 +110,7 @@
             },
             //创建图片
             createImage(file, type) {
+                let t = this;
                 if (typeof FileReader === 'undefined') {
                     Toast('您的浏览器不支持图片上传，请升级您的浏览器。推荐下载谷歌浏览器');
                     return false
@@ -119,9 +124,30 @@
                         type == 0 ?
                             this.coverPhoto.push(e.target.result) :
                             this.detailPhoto.push(e.target.result)
+                        //shangchaun
+                        let Kparams = {
+                            content:[{
+                                type: 'image',
+                                value: e.target.result.split(',')[1],
+                                name:'jpg'
+                            }],
+                            attributes:{
+                                un: t.un,//用户名
+                                pti: t.pti,//帖子id
+                                phc: e.target.result.split(',')[1],//图片内容
+                                phe:"jpg || png"// 图片扩展名
+                            }
+                        };
+                        //上传服务器64位图片返回图片地址
+                        requestHandle.requestimg(Kparams, function (result) {
+                            console.log(result)
+                            if(result.errcode == '100000'){
+                                Toast('上传成功！');
+                                t.photos.push(result.result[0].post_photo)
+                            }
+                        });
                     }
                 }
-                Toast('上传成功！')
             },
             //删除图片
             QdelImage(index, type) {
@@ -132,24 +158,28 @@
             },
             //发表
             postsend2(){
-                let that = this;
-                //console.log(that.dialogImageUrl)
+                let pnr = this.QTneirong;
+                let mid = this.mid;
+                let ppt = this.QTbiaoti;
+                let pct = this.QTneirong;
+                let name = this.QTxingming;
+                let phone = this.QTphone;
                 let params = {content:[{
                     type:'text',
-                    value:'that.QTneirong'
+                    value:pnr
                 },{
                     type:'image',
-                    value:'that.coverPhoto[0]'
+                    value:this.photos
                 }],attributes:{
-                    mid:'288',//社区ID
-                    ppt:'that.QTbiaoti',//帖子标题
-                    ian:'that.QTneirong',//帖子内容
-                    name:'that.QTxingming',//姓名
-                    phone:'that.QTphone'//联系方式
+                    mid:mid,//社区ID
+                    ppt:ppt,//帖子标题
+                    pct:pct,//帖子内容
+                    name:name,//姓名
+                    phone:phone//联系方式
                 }};
                 requestHandle.request(params,function (result) {
                     //console.log(result.msg)
-                    if(result.msg == "Success"){
+                    if(result.errcode == "100000"){
                         MessageBox('警告框', '发表成功！');
                     }else{
                         MessageBox('警告框', '发表失败！');
