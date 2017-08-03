@@ -102,48 +102,7 @@
             this.biaoti = localStorage.getItem("biaotis");
             this.xingming = localStorage.getItem("username");
             this.phone = localStorage.getItem("phones");
-            let typetext = $("#typespo").val();
-            if(typetext == '工地扬尘'){
-                this.typeid = 1
-            }else if(typetext == '裸土堆放'){
-                this.typeid = 2
-            }else if(typetext == '汽车黑烟'){
-                this.typeid = 3
-            }else if(typetext == '道路拥堵'){
-                this.typeid = 4
-            }else if(typetext== '大车禁行'){
-                this.typeid = 5
-            }else if(typetext == '祭祀品贩卖'){
-                this.typeid = 6
-            }else if(typetext == '爆竹贩卖'){
-                this.typeid = 7
-            }else if(typetext == '爆竹燃放'){
-                this.typeid = 8
-            }else if(typetext == '渣土车带泥上路'){
-                this.typeid = 9
-            }else if(typetext == '渣土车运输未苫盖'){
-                this.typeid = 10
-            }else if(typetext == '露天烧烤'){
-                this.typeid = 11
-            }else if(typetext == '餐饮油烟'){
-                this.typeid = 12
-            }else if(typetext == '露天喷漆'){
-                this.typeid = 13
-            }else if(typetext == '露天电气焊'){
-                this.typeid = 14
-            }else if(typetext == '垃圾堆放'){
-                this.typeid = 15
-            }else if(typetext == '企业废气排放'){
-                this.typeid = 16
-            }else if(typetext == '锅炉黑烟'){
-                this.typeid = 17
-            }else if(typetext == '祭祀品焚烧'){
-                this.typeid = 18
-            }else if(typetext == '秸秆焚烧'){
-                this.typeid = 19
-            }else if(typetext == '散煤及生物质焚烧'){
-                this.typeid = 20
-            }
+            this.typeid=  localStorage.getItem("typeid");
             console.log(this.typeid)
             let that = this;
             //标题
@@ -214,6 +173,7 @@
                             this.detailPhoto.push(e.target.result)
                         //shangchaun
                         this.image64.push(e.target.result.split(',')[1]);
+                        Toast('上传成功！');
                     }
                 }
 

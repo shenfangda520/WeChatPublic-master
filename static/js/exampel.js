@@ -4,7 +4,7 @@ var requestHandle = {
     imgaction:'upPostPhoto',
     requestBendi:function (postData,callback) {
         $.ajax({
-            url: 'http://10.6.24.9:8008/api/EventInfo/postEventInfo',
+            url: 'http://117.119.97.150:6915/api/EventInfo/postEventInfo',
             type: 'POST',
             dataType: 'json',
             data: postData,
