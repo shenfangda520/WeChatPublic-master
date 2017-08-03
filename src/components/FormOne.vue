@@ -170,10 +170,30 @@
                     reader.onload = (e) => {
                         type == 0 ?
                             this.coverPhoto.push(e.target.result) :
-                            this.detailPhoto.push(e.target.result)
-                        //shangchaun
+                            this.detailPhoto.push(e.target.result);
                         this.image64.push(e.target.result.split(',')[1]);
-                        Toast('上传成功！');
+                        //shangchaun
+                        let Kparams = {
+                            content:[{
+                                type: 'image',
+                                value: e.target.result.split(',')[1],
+                                name:'jpg'
+                            }],
+                            attributes:{
+                                un: t.un,//用户名
+                                pti: t.pti,//帖子id
+                                phc: e.target.result.split(',')[1],//图片内容
+                                phe:"jpg || png"// 图片扩展名
+                            }
+                        };
+                        //上传服务器64位图片返回图片地址
+                        requestHandle.requestimg(Kparams, function (result) {
+                            console.log(result)
+                            if(result.errcode == '100000'){
+                                Toast('上传成功！');
+                                t.photos.push(result.result[0].post_photo)
+                            }
+                        });
                     }
                 }
 
@@ -207,10 +227,32 @@
                 requestHandle.requestBendi(postData,function (result) {
                     if(result.Code == 1) {
                         //成功
-                        MessageBox('警告框', '发表成功！');
+                        console.log('本地发表成功！');
                     } else {
                         //失败
-                        MessageBox('警告框', '发表失败！');
+                        console.log('本地发表失败！');
+                    }
+                })
+                //远端效果
+                let params = {content:[{
+                    type:'text',
+                    value:pnr
+                },{
+                    type:'image',
+                    value:this.photos
+                }],attributes:{
+                    mid:mid,//社区ID
+                    ppt:ppt,//帖子标题
+                    pct:pnr,//帖子内容
+                    name:name,//姓名
+                    phone:phone//联系方式
+                }};
+                requestHandle.request(params,function (result) {
+                    //console.log(result.msg)
+                    if(result.errcode == "100000"){
+                        Toast('发表成功！');
+                    }else{
+                        Toast('发表失败！');
                     }
                 })
             }

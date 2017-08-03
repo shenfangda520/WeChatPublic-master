@@ -181,9 +181,9 @@
                 requestHandle.request(params,function (result) {
                     //console.log(result.msg)
                     if(result.errcode == "100000"){
-                        MessageBox('警告框', '发表成功！');
+                        Toast('发表成功！');
                     }else{
-                        MessageBox('警告框', '发表失败！');
+                        Toast('发表失败！');
                     }
                 })
             }
