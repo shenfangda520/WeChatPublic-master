@@ -50,6 +50,7 @@
                 coverPhoto:[],
                 detailPhoto:[],
                 photos:[],
+                image64:[],
                 pti:288,
                 mid:288,
                 un:'[weixin]owQ3dvtTpoSi1LQOZVjuwRmbIYGE'
@@ -129,7 +130,8 @@
                     reader.onload = (e) => {
                         type == 0 ?
                             this.coverPhoto.push(e.target.result) :
-                            this.detailPhoto.push(e.target.result)
+                            this.detailPhoto.push(e.target.result);
+                        this.image64.push(e.target.result.split(',')[1]);
                         //shangchaun
                         let Kparams = {
                             content:[{
