@@ -67,6 +67,9 @@
             }
         },
         mounted(){
+            //this.un = this.$route.query.un;
+            //this.pti = this.$route.query.id;
+            this.mid = this.$route.query.id;
             let that = this;
             //标题
             $("#Qbt").blur(function (){
@@ -162,6 +165,7 @@
                 type == 0 ?
                     this.coverPhoto.shift(index) :
                     this.detailPhoto.shift(index);
+                    this.image64.shift(index);
                 Toast('删除成功！')
             },
             //发表
@@ -180,7 +184,7 @@
                     value:this.photos
                 }],attributes:{
                     mid:mid,//社区ID
-                    ppt:ppt,//帖子标题
+                    ptt:ppt,//帖子标题
                     pct:pct,//帖子内容
                     name:name,//姓名
                     phone:phone//联系方式
