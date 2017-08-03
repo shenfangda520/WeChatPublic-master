@@ -157,6 +157,12 @@
             },
             //创建图片
             createImage(file, type) {
+               // console.log(this.image64.length)
+                if(this.image64.length > 2){
+                    //console.log(this.image64.length)
+                    Toast('图片上传失败，不能超过两张！');
+                    return false
+                }
                 let t = this;
                 if (typeof FileReader === 'undefined') {
                     Toast('您的浏览器不支持图片上传，请升级您的浏览器。推荐下载谷歌浏览器');
@@ -164,6 +170,7 @@
                 }
                 let image = new Image();
                 let length = file.length;
+
                 for (var i = 0; i < length; i++) {
                     let reader = new FileReader();
                     reader.readAsDataURL(file[i]);
