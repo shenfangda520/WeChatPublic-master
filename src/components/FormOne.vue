@@ -160,7 +160,7 @@
                // console.log(this.image64.length)
                 if(this.image64.length > 2){
                     //console.log(this.image64.length)
-                    Toast('图片上传失败，不能超过两张！');
+                    Toast('图片上传失败，不能超过三张！');
                     return false
                 }
                 let t = this;

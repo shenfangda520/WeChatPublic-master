@@ -111,6 +111,11 @@
             },
             //创建图片
             createImage(file, type) {
+                if(this.image64.length > 2){
+                    //console.log(this.image64.length)
+                    Toast('图片上传失败，不能超过三张！');
+                    return false
+                }
                 let t = this;
                 if (typeof FileReader === 'undefined') {
                     Toast('您的浏览器不支持图片上传，请升级您的浏览器。推荐下载谷歌浏览器');
