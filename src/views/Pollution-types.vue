@@ -5,11 +5,7 @@
         <div class="content">
             <!--sousuo-->
             <mt-search  placeholder="搜索名称/拼音">
-                <mt-cell
-                        v-for="item in options"
-                        :value="item.value.name"
-                        show="true"
-                >
+                <mt-cell>
                     <!--[-->
                     <!--'工地扬尘',-->
                     <!--'裸土堆放',-->
