@@ -186,14 +186,14 @@
                     value:this.photos
                 }],attributes:{
                     un:this.un,
-                    mid:mid,//社区ID
+                    mid:this.mid,//社区ID
                     ptt:ppt,//帖子标题
                     pct:pct,//帖子内容
                     name:name,//姓名
                     phone:phone//联系方式
                 }};
                 requestHandle.request(params,function (result) {
-                    //console.log(result.msg)
+                    console.log(result.msg)
                     if(result.errcode == "100000"){
                         Toast('发表成功！');
                     }else{

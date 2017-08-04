@@ -27,7 +27,7 @@ var requestHandle = {
 		}});
 	},
 	_getParams:function(data){
-		//console.log(data)
+		console.log(data)
 		var content = data.content;
 		var attributes = data.attributes;
 		var postInfo = [];
