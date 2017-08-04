@@ -51,9 +51,9 @@
                 detailPhoto:[],
                 photos:[],
                 image64:[],
-                pti:288,
-                mid:288,
-                un:'[weixin]owQ3dvtTpoSi1LQOZVjuwRmbIYGE'
+                pti:'',
+                mid:'',
+                un:''
             }
         },
         props: {
@@ -66,10 +66,15 @@
                 default: ''
             }
         },
+        beforeCreate(){
+            window.localStorage.setItem("unxxx", this.$route.query.un);
+            window.localStorage.setItem("idxxx", this.$route.query.id || '320');
+            window.localStorage.setItem("pidxxx", this.$route.query.id || '320');
+        },
         mounted(){
-            //this.un = this.$route.query.un;
-            //this.pti = this.$route.query.id;
-            this.mid = this.$route.query.id;
+            this.un = localStorage.getItem("unxxx");
+            this.mid = localStorage.getItem("idxxx");
+            this.pti = localStorage.getItem("pidxxx");
             let that = this;
             //标题
             $("#Qbt").blur(function (){
@@ -183,6 +188,7 @@
                     type:'image',
                     value:this.photos
                 }],attributes:{
+                    un:this.un,
                     mid:mid,//社区ID
                     ptt:ppt,//帖子标题
                     pct:pct,//帖子内容

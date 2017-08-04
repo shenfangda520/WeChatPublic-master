@@ -62,7 +62,8 @@
                     let addComp = result.addressComponents;
                     let ttlocation = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                     window.localStorage.setItem("locallocation", ttlocation);
-                    t.$router.push('/');
+                    //t.$router.push('/');
+                    t.$router.go(-1)
                 });
             }
         }

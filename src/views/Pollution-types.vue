@@ -221,7 +221,8 @@
                 } else {
                     window.localStorage.setItem("typeid", typeid);
                     window.localStorage.setItem("potypes", typepss);
-                    this.$router.push('/');
+//                    this.$router.push('/');
+                    this.$router.go(-1)
                 }
             }
         }

@@ -68,9 +68,9 @@
                 coverPhoto:[],
                 detailPhoto:[],
                 image64:[],
-                un:'[weixin]owQ3dvtTpoSi1LQOZVjuwRmbIYGE',
-                pti:288,
-                mid:288,
+                un:'',
+                pti:'',
+                mid:'',
                 typeid:''
             }
         },
@@ -94,8 +94,12 @@
                 default: 4
             }
         },
+        beforeCreate(){
+            console.log('设置参数')
+            window.localStorage.setItem("unxxx", this.$route.query.un);
+            window.localStorage.setItem("idxxx", this.$route.query.id || '320');
+        },
         mounted(){
-
             //设置位置信息
             this.addresstext = localStorage.getItem("locallocation") || '请选择污染源地址';
             this.types = localStorage.getItem("potypes") || '请选择污染类型';
@@ -103,10 +107,10 @@
             this.xingming = localStorage.getItem("username");
             this.phone = localStorage.getItem("phones");
             this.typeid=  localStorage.getItem("typeid");
-            //this.un = this.$route.query.un;
-            //this.pti = this.$route.query.pti;
-            this.mid = this.$route.query.id;
-            console.log(this.$route.query.id)
+            this.un = localStorage.getItem("unxxx");
+            this.mid = localStorage.getItem("idxxx");
+            console.log('用户名：'+this.$route.query.un)
+            console.log('用户ID：'+this.$route.query.id)
             let that = this;
             //标题
             $("#bt").blur(function () {
