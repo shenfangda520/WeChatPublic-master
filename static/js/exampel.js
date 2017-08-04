@@ -53,7 +53,7 @@ var requestHandle = {
 		sendPostParam.rco = attributes.phone;
 		sendPostParam.pct = encodeURIComponent(JSON.stringify(postInfo));
 		
-		var specialdata = 'un='+sendPostParam.un+'&mid='+sendPostParam.mid+'&ptt='+sendPostParam.ppt+'&pct='+sendPostParam.pct+'&ian=true';
+		var specialdata = 'un='+sendPostParam.un+'&mid='+sendPostParam.mid+'&ptt='+sendPostParam.ptt+'&pct='+sendPostParam.pct+'&ian=true';
 		console.log('主体发送:'+'action='+this.action+'&format=json&data='+this._xor(specialdata)+'&verf='+hex_md5(encodeURIComponent(specialdata))+'&pv=3')
 		return 'action='+this.action+'&format=json&data='+this._xor(specialdata)+'&verf='+hex_md5(encodeURIComponent(specialdata))+'&pv=3';
 		

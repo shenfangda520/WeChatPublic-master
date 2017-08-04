@@ -69,12 +69,10 @@
         beforeCreate(){
             window.localStorage.setItem("unxxx", this.$route.query.un);
             window.localStorage.setItem("idxxx", this.$route.query.id || '320');
-            window.localStorage.setItem("pidxxx", this.$route.query.id || '320');
         },
         mounted(){
             this.un = localStorage.getItem("unxxx");
             this.mid = localStorage.getItem("idxxx");
-            this.pti = localStorage.getItem("pidxxx");
             let that = this;
             //标题
             $("#Qbt").blur(function (){
@@ -149,7 +147,7 @@
                             }],
                             attributes:{
                                 un: t.un,//用户名
-                                pti: t.pti,//帖子id
+                                pti: t.mid,//帖子id
                                 phc: e.target.result.split(',')[1],//图片内容
                                 phe:"jpg || png"// 图片扩展名
                             }

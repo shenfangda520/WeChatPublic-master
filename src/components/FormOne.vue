@@ -195,7 +195,7 @@
                             }],
                             attributes:{
                                 un: t.un,//用户名
-                                pti: t.pti,//帖子id
+                                pti: t.mid,//帖子id
                                 phc: e.target.result.split(',')[1],//图片内容
                                 phe:"jpg || png"// 图片扩展名
                             }
