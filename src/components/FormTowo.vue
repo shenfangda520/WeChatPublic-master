@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    import {MessageBox,Toast} from 'mint-ui';
+    import {Toast} from 'mint-ui';
     export default {
         name: 'FormTowo',
         data () {
@@ -67,12 +67,11 @@
             }
         },
         beforeCreate(){
-            window.localStorage.setItem("unxxx", this.$route.query.un);
-            window.localStorage.setItem("idxxx", this.$route.query.id || '320');
+
         },
         mounted(){
-            this.un = localStorage.getItem("unxxx");
-            this.mid = localStorage.getItem("idxxx");
+            this.un = this.$parent.$parent.zun;
+            this.mid = this.$parent.$parent.zmid;
             let that = this;
             //标题
             $("#Qbt").blur(function (){
@@ -98,7 +97,7 @@
             $("#moble").blur(function () {
                 that.QTphone = $("#moble").val();
                 var iphone = that.QTphone;
-                console.log(iphone)
+                //console.log(iphone)
                 if (!(/^1(3|4|5|7|8)\d{9}$/.test(iphone))) {
                     Toast('手机号码有误，请重填');
                 }

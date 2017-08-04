@@ -6,7 +6,38 @@
 
 <script>
     export default {
-        name: 'app'
+        name: 'app',
+        data () {
+            return {
+                zmid:'',
+                zpid:'',
+                zun:'',//
+                zbiaoti:'',//第一标题
+                zmiaoshu:'',//第一描述
+                zxingming:'',//第一姓名
+                zphone:'',//第一手机
+                zaddresstext:'',//第一污染地址
+                ztypes:'',//第一污染类型
+                ztypeid:''
+            }
+        },
+        props(){
+            return{
+
+            }
+        },
+        beforeMount(){
+            this.zun = this.$route.query.un;
+            this.zmid = this.$route.query.id;
+            this.zpid = this.$route.query.id;
+        },
+        mounted(){
+           // console.log('祖先用户名:'+this.zun)
+           // console.log('祖先用户pid:'+this.zpid)
+           // console.log('祖先污染源:'+this.zaddresstext)
+           // console.log('祖先污染类型:'+this.ztypes)
+           // console.log('祖先污染类型ID:'+this.ztypeid)
+        }
     }
 </script>
 

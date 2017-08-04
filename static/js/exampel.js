@@ -27,7 +27,7 @@ var requestHandle = {
 		}});
 	},
 	_getParams:function(data){
-		console.log(data)
+		//console.log(data)
 		var content = data.content;
 		var attributes = data.attributes;
 		var postInfo = [];
@@ -54,7 +54,7 @@ var requestHandle = {
 		sendPostParam.pct = encodeURIComponent(JSON.stringify(postInfo));
 		
 		var specialdata = 'un='+sendPostParam.un+'&mid='+sendPostParam.mid+'&ptt='+sendPostParam.ptt+'&pct='+sendPostParam.pct+'&ian=true';
-		console.log('主体发送:'+'action='+this.action+'&format=json&data='+this._xor(specialdata)+'&verf='+hex_md5(encodeURIComponent(specialdata))+'&pv=3')
+		//console.log('主体发送:'+'action='+this.action+'&format=json&data='+this._xor(specialdata)+'&verf='+hex_md5(encodeURIComponent(specialdata))+'&pv=3')
 		return 'action='+this.action+'&format=json&data='+this._xor(specialdata)+'&verf='+hex_md5(encodeURIComponent(specialdata))+'&pv=3';
 		
 	},

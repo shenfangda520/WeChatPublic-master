@@ -4,7 +4,7 @@
             <input v-model="biaoti" placeholder="标题,4-25个字" id="bt"/>
         </div>
         <div class="item-2">
-            <textarea placeholder="描述,不超过700字" class="text"></textarea>
+            <textarea placeholder="描述,不超过700字" class="text" v-text="miaoshu"></textarea>
         </div>
         <div class="item-1">
             <input v-model="xingming" placeholder="姓名,(仅管理员可看)" id="user"/>
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-    import {MessageBox, Toast} from 'mint-ui';
+    import {Toast} from 'mint-ui';
     export default {
         name: 'FormOne',
         data () {
@@ -95,27 +95,22 @@
             }
         },
         beforeCreate(){
-            console.log('设置参数')
-            window.localStorage.setItem("unxxx", this.$route.query.un);
-            window.localStorage.setItem("idxxx", this.$route.query.id || '320');
+
         },
         mounted(){
             //设置位置信息
-            this.addresstext = localStorage.getItem("locallocation") || '请选择污染源地址';
-            this.types = localStorage.getItem("potypes") || '请选择污染类型';
-            this.biaoti = localStorage.getItem("biaotis");
-            this.xingming = localStorage.getItem("username");
-            this.phone = localStorage.getItem("phones");
-            this.typeid=  localStorage.getItem("typeid");
-            this.un = localStorage.getItem("unxxx");
-            this.mid = localStorage.getItem("idxxx");
-            console.log('用户名：'+this.$route.query.un)
-            console.log('用户ID：'+this.$route.query.id)
+            this.addresstext = this.$parent.$parent.zaddresstext || '请选择污染源地址';
+            this.types = this.$parent.$parent.ztypes || '请选择污染类型';
+            this.biaoti = this.$parent.$parent.zbiaoti;
+            this.xingming = this.$parent.$parent.zxingming;
+            this.phone = this.$parent.$parent.zphone;
+            this.typeid=  this.$parent.$parent.ztypeid;
+            this.miaoshu=  this.$parent.$parent.zmiaoshu;
             let that = this;
             //标题
             $("#bt").blur(function () {
                 var bt = that.biaoti;
-                window.localStorage.setItem("biaotis", bt);
+               that.$parent.$parent.zbiaoti = bt;
                 if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(bt) || bt.length < 4) {
                     Toast('少于4个字符，请继续输入！');
                 } else if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(bt) || bt.length > 25) {
@@ -126,7 +121,7 @@
             $(".text").blur(function () {
                 that.miaoshu = $(".text").val();
                 var miao = that.miaoshu;
-                window.localStorage.setItem("miaosus", miao);
+                that.$parent.$parent.zmiao = miao;
                 //console.log(miao)
                 if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(miao) || miao.length < 20) {
                     Toast('少于20个字符，请继续输入！');
@@ -138,7 +133,7 @@
             $("#moble").blur(function () {
                 that.phone = $("#moble").val();
                 var iphone = that.phone;
-                window.localStorage.setItem("phones", iphone);
+                that.$parent.$parent.zphone = iphone;
                 //console.log(iphone)
                 if (!(/^1(3|4|5|7|8)\d{9}$/.test(iphone))) {
                     Toast('手机号码有误，请重填');
@@ -147,7 +142,7 @@
             //
             $("#user").blur(function () {
                 let user = $("#user").val();
-                window.localStorage.setItem("username", user);
+                that.$parent.$parent.zxingming = user;
             })
         },
         methods: {
@@ -194,8 +189,8 @@
                                 name:'jpg'
                             }],
                             attributes:{
-                                un: t.un,//用户名
-                                pti: t.mid,//帖子id
+                                un: t.$parent.$parent.zun,//用户名
+                                pti: t.$parent.$parent.zmid,//帖子id
                                 phc: e.target.result.split(',')[1],//图片内容
                                 phe:"jpg || png"// 图片扩展名
                             }
@@ -222,8 +217,8 @@
             },
             //发表
             postsend(){
-                let un = this.un;
-                let mid = this.mid;
+                let un = this.$parent.$parent.zun;
+                let mid = this.$parent.$parent.zmid;
                 let pnr = this.miaoshu;
                 let ppt = this.biaoti;
                 let name = this.xingming;
@@ -256,7 +251,7 @@
                     type:'image',
                     value:this.photos
                 }],attributes:{
-                    un:this.un,
+                    un:this.$parent.$parent.zun,
                     mid:mid,//社区ID
                     ptt:ppt,//帖子标题
                     pct:pnr,//帖子内容

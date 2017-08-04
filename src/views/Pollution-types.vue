@@ -215,13 +215,12 @@
             getvaluechenge(){
                console.log('已选择')
                 let typepss = this.valuekey.name;
-                let typeid = this.valuekey.id;
+               let typeid = this.valuekey.id;
                 if (!typepss) {
                     MessageBox('警告框！', '请选择一个选项！');
                 } else {
-                    window.localStorage.setItem("typeid", typeid);
-                    window.localStorage.setItem("potypes", typepss);
-//                    this.$router.push('/');
+                    this.$parent.ztypeid = typeid;
+                    this.$parent.ztypes = typepss;
                     this.$router.go(-1)
                 }
             }

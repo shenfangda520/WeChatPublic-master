@@ -61,8 +61,7 @@
                 this.geoCoder.getLocation(e.point, function (result) {
                     let addComp = result.addressComponents;
                     let ttlocation = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                    window.localStorage.setItem("locallocation", ttlocation);
-                    //t.$router.push('/');
+                    t.$parent.zaddresstext= ttlocation;
                     t.$router.go(-1)
                 });
             }
