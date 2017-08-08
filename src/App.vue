@@ -124,7 +124,9 @@
     .mint-search {
         height: auto!important;
     }
-
+    .mint-searchbar{
+        background: none!important;
+    }
     .mint-cell {
         background: none!important;
         border: none;
@@ -149,6 +151,9 @@
             text-align: left;
             font-size: 18px;
         }
+         .mint-cell{
+            border-bottom:solid 1px #ccc!important;
+        }
     }
     .FormOne, .FormTowo {
         .mint-cell-title {
@@ -166,4 +171,5 @@
             }
         }
     }
+
 </style>

@@ -4,7 +4,7 @@
             <input v-model="biaoti" placeholder="标题,4-25个字" id="bt"/>
         </div>
         <div class="item-2">
-            <textarea placeholder="描述,不超过700字" class="text" v-text="miaoshu"></textarea>
+            <textarea placeholder="描述,不超过700字" class="text">{{miaoshu}}</textarea>
         </div>
         <div class="item-1">
             <input v-model="xingming" placeholder="姓名,(仅管理员可看)" id="user"/>
@@ -98,14 +98,15 @@
 
         },
         mounted(){
+
             //设置位置信息
             this.addresstext = this.$parent.$parent.zaddresstext || '请选择污染源地址';
             this.types = this.$parent.$parent.ztypes || '请选择污染类型';
             this.biaoti = this.$parent.$parent.zbiaoti;
             this.xingming = this.$parent.$parent.zxingming;
             this.phone = this.$parent.$parent.zphone;
-            this.typeid=  this.$parent.$parent.ztypeid;
-            this.miaoshu=  this.$parent.$parent.zmiaoshu;
+            this.typeid = this.$parent.$parent.ztypeid;
+            this.miaoshu = this.$parent.$parent.zmiaoshu;
             let that = this;
             //标题
             $("#bt").blur(function () {
@@ -120,8 +121,7 @@
             //内容
             $(".text").blur(function () {
                 that.miaoshu = $(".text").val();
-                var miao = that.miaoshu;
-                that.$parent.$parent.zmiao = miao;
+                that.$parent.$parent.zmiaoshu = that.miaoshu;
                 //console.log(miao)
                 if (!/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/.test(miao) || miao.length < 20) {
                     Toast('少于20个字符，请继续输入！');
@@ -223,7 +223,22 @@
                 let ppt = this.biaoti;
                 let name = this.xingming;
                 let phone = this.phone;
-
+                if(pnr == ''){
+                  Toast('必须填写描述！')
+                    return false
+                }
+              if(this.image64 ==''){
+                Toast('必须上传图片！')
+                return false
+              }
+              if(this.types==''){
+                Toast('污染类型请选择！')
+                return false
+              }
+              if(this.addresstext==''){
+                Toast('污染地址请选择！')
+                return false
+              }
                 //本地效果
                 let postData = {
                     CategoryID: this.typeid,//类别ID
@@ -376,7 +391,7 @@
         .youqing {
             color: #959595;
             overflow: hidden;
-            width: 100%;
+            width: auto;
             height: auto;
             padding: 50px 0;
             font-size: 16px;

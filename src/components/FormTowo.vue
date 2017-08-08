@@ -256,7 +256,7 @@
         }
         .youqing {
             color: #959595;
-            width: 100%;
+            width: auto;
             height: auto;
             padding: 50px 0;
             font-size: 16px;

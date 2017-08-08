@@ -29,6 +29,7 @@
                     <!--]-->
                 </mt-cell>
             </mt-search>
+            <div class="bg"></div>
             <!--xuanxiang-->
             <mt-radio
                     :value.sync="value"
@@ -238,6 +239,12 @@
     .PollutionTypes {
         .content {
             margin-top: 50px;
+            .bg{
+                width: 100%;
+                height: 25px;
+                background: rgb(237,237,237);
+            }
         }
+
     }
 </style>
