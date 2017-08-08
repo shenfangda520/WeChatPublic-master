@@ -34,7 +34,7 @@
                 map.addControl(top_right_navigation);//添加放大缩小控件
                 t.geoCoder = new BMap.Geocoder();
 
-                let pt = new BMap.Point(116.70, 39.53);//初始化
+                let pt = new BMap.Point(116.71113,39.528505);//初始化
                 t.marker = new BMap.Marker(pt);//设置Marker
                 map.addOverlay(t.marker);
                 t.getLocation(map);//获取当前位置坐标信息

@@ -18,7 +18,11 @@
                 zphone:'',//第一手机
                 zaddresstext:'',//第一污染地址
                 ztypes:'',//第一污染类型
-                ztypeid:''
+                ztypeid:'',
+                zphotos:[],
+                zimg64:[],
+                zcoverPhoto:[],
+                zdetailPhoto:[]
             }
         },
         props(){

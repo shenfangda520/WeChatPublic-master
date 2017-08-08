@@ -107,6 +107,10 @@
             this.phone = this.$parent.$parent.zphone;
             this.typeid = this.$parent.$parent.ztypeid;
             this.miaoshu = this.$parent.$parent.zmiaoshu;
+            this.photos = this.$parent.$parent.zphotos;
+            this.image64 = this.$parent.$parent.zimg64;
+            this.coverPhoto= this.$parent.$parent.zcoverPhoto;
+            this.detailPhoto = this.$parent.$parent.zdetailPhoto;
             let that = this;
             //标题
             $("#bt").blur(function () {
@@ -177,11 +181,11 @@
                     let reader = new FileReader();
                     reader.readAsDataURL(file[i]);
                     reader.onload = (e) => {
-                        type == 0 ?
-                            this.coverPhoto.push(e.target.result) :
-                            this.detailPhoto.push(e.target.result);
-                        this.image64.push(e.target.result.split(',')[1]);
-                        //shangchaun
+                        this.$parent.$parent.zimg64.push(e.target.result.split(',')[1]);
+                      type == 0 ?
+                        this.$parent.$parent.zcoverPhoto.push(e.target.result) :
+                        this.$parent.$parent.zdetailPhoto.push(e.target.result);
+                      //shangchaun
                         let Kparams = {
                             content:[{
                                 type: 'image',
@@ -199,8 +203,8 @@
                         requestHandle.requestimg(Kparams, function (result) {
                             console.log(result)
                             if(result.errcode == '100000'){
+                                t.$parent.$parent.zphotos.push(result.result[0].post_photo)
                                 Toast('上传成功！');
-                                t.photos.push(result.result[0].post_photo)
                             }
                         });
                     }
@@ -210,9 +214,9 @@
             //删除图片
             delImage(index, type) {
                 type == 0 ?
-                    this.coverPhoto.shift(index) :
-                    this.detailPhoto.shift(index);
-                    this.image64.shift(index);
+                    this.$parent.$parent.zcoverPhoto.shift(index) :
+                    this.$parent.$parent.zdetailPhoto.shift(index);
+                    this.$parent.$parent.zimg64.shift(index);
                 Toast('删除成功！')
             },
             //发表
