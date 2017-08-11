@@ -178,6 +178,22 @@
                 let pct = this.QTneirong;
                 let name = this.QTxingming;
                 let phone = this.QTphone;
+              if(pnr == ''){
+                Toast('必须填写描述！')
+                return false
+              }
+              if(name == ''){
+                Toast('必须填写联系人！')
+                return false
+              }
+              if(phone == ''){
+                Toast('必须填写联系方式！')
+                return false
+              }
+              if(this.image64 ==''){
+                Toast('必须上传图片！')
+                return false
+              }
                 let params = {content:[{
                     type:'text',
                     value:pnr

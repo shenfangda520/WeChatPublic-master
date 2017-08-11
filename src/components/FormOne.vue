@@ -227,20 +227,29 @@
                 let ppt = this.biaoti;
                 let name = this.xingming;
                 let phone = this.phone;
-                if(pnr == ''){
-                  Toast('必须填写描述！')
-                    return false
-                }
-              if(this.image64 ==''){
-                Toast('必须上传图片！')
+
+              if(pnr == ''){
+                Toast('必须填写描述！')
                 return false
               }
-              if(this.types==''){
+              if(name == ''){
+                Toast('必须填写联系人！')
+                return false
+              }
+              if(phone == ''){
+                Toast('必须填写联系方式！')
+                return false
+              }
+              if(this.addresstext=='请选择污染源地址'){
+                Toast('污染地址请选择！')
+                return false
+              }
+              if(this.types=='请选择污染类型'){
                 Toast('污染类型请选择！')
                 return false
               }
-              if(this.addresstext==''){
-                Toast('污染地址请选择！')
+              if(this.image64 ==''){
+                Toast('必须上传图片！')
                 return false
               }
                 //本地效果

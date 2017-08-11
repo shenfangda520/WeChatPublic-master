@@ -25,7 +25,7 @@
             ready () {
                 let t = this;
                 let map = new BMap.Map('map');//定义地图对象
-                map.centerAndZoom('廊坊', 10);//初始化范围及缩放比例
+                map.centerAndZoom('廊坊', 16);//初始化范围及缩放比例
                 map.enableScrollWheelZoom();//启动滚轮事件
                 let top_right_navigation = new BMap.NavigationControl({
                     anchor: BMAP_ANCHOR_BOTTOM_LEFT,
