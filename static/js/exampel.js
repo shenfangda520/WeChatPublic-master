@@ -52,11 +52,12 @@ var requestHandle = {
 		sendPostParam.rnm = attributes.name;
 		sendPostParam.rco = attributes.phone;
 		sendPostParam.pct = encodeURIComponent(JSON.stringify(postInfo));
-		
-		var specialdata = 'un='+sendPostParam.un+'&mid='+sendPostParam.mid+'&ptt='+sendPostParam.ptt+'&pct='+sendPostParam.pct+'&ian=true';
+
+		var specialdata = 'un='+sendPostParam.un+'&mid='+sendPostParam.mid+'&ptt='+sendPostParam.ptt+'&pct='+sendPostParam.pct+'&rnm='+sendPostParam.rnm+'&rco='+sendPostParam.rco+'&ian=true';
 		//console.log('主体发送:'+'action='+this.action+'&format=json&data='+this._xor(specialdata)+'&verf='+hex_md5(encodeURIComponent(specialdata))+'&pv=3')
-		return 'action='+this.action+'&format=json&data='+this._xor(specialdata)+'&verf='+hex_md5(encodeURIComponent(specialdata))+'&pv=3';
-		
+		//console.log(specialdata)
+    return 'action='+this.action+'&format=json&data='+this._xor(specialdata)+'&verf='+hex_md5(encodeURIComponent(specialdata))+'&pv=3';
+
 	},
     requestimg:function(params,callback){
         var t = this;
@@ -100,7 +101,7 @@ var requestHandle = {
 	},
 	_base64encode(str){
 		var c1, c2, c3;
-		var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";                
+		var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 		var i = 0, len= str.length, string = '';
 
 		while (i < len){
