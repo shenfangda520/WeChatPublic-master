@@ -290,6 +290,9 @@
                     //console.log(result.msg)
                     if(result.errcode == "100000"){
                         Toast('发表成功！');
+                        setTimeout(()=>{
+                            window.location = 'http://www.anyradio.cn/website/wap/wx_comm/channel.html?id=320'
+                        },500)
                     }else{
                         Toast('发表失败！');
                     }
